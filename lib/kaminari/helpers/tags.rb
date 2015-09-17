@@ -27,7 +27,16 @@ module Kaminari
       end
 
       def page_url_for(page)
-        (@route_set || @template).url_for @params.merge(@param_name => (page <= 1 ? nil : page), :only_path => true)
+        arguments = @params.merge(@param_name => (page <= 1 ? nil : page), :only_path => true)
+        if @route_set
+          @route_set.url_for arguments
+        else
+          begin
+            @template.url_for arguments
+          rescue
+            @template.main_app.url_for arguments
+          end
+        end
       end
 
       def partial_path

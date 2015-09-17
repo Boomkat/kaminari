@@ -26,6 +26,7 @@ module Kaminari
         @template, @options = template, options
         @theme = @options[:theme]
         @views_prefix = @options[:views_prefix]
+        @route_set = @options[:route_set]
         @window_options.merge! @options
         @window_options[:current_page] = @options[:current_page] = PageProxy.new(@window_options, @options[:current_page], nil)
 
